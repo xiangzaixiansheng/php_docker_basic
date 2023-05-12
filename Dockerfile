@@ -45,6 +45,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     imagemagick \
     imagemagick-dev \
     icu-dev \ 
+    vim \
     \
     # 需要高版本的php
     # && pecl install mongodb \

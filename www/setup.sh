@@ -28,7 +28,7 @@ while sleep 5; do
 
   if [ $FPM_STATUS -ne 0 -o $NGINX_STATUS -ne 0 ]; then
     echo "[Process]One of the processes has already exited."
-    exit 1
+    # exit 1
   fi
 done
 
