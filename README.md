@@ -33,9 +33,11 @@ php --ini |grep Loaded
 dockerFile相关
 
 ```shell
-# 安装php相关依赖的方法
+# 安装扩展
 RUN docker-php-ext-install bcmath bz2 calendar exif gd gettext intl \
     mysqli opcache pdo pdo_mysql readline sockets tidy
+
+#docker-php-ext-enable的主要用途是生成扩展相应的配置文件到 /usr/local/etc/php/conf.d/docker-php-ext-{extName}.ini 方便 php 加载扩展。
 
 RUN pecl install redis-3.1.5 && \
     pecl install memcached-3.0.4 && \
