@@ -58,7 +58,7 @@ RUN docker-php-ext-configure gd \
       --with-png-dir=/usr/include/ \
       --with-jpeg-dir=/usr/include/ 
 
-RUN docker-php-ext-install pdo_mysql mysqli gd bcmath exif intl xsl soap zip opcache pcntl \
+RUN docker-php-ext-install pdo_mysql mysqli mysql gd bcmath exif intl xsl soap zip opcache pcntl \
 	                      pdo_dblib gettext calendar shmop sockets wddx pdo_pgsql gmp bz2 xmlrpc \
     && docker-php-ext-enable radius\
     \
@@ -86,6 +86,12 @@ RUN docker-php-ext-install pdo_mysql mysqli gd bcmath exif intl xsl soap zip opc
     
 RUN apk add nginx curl
     # && echo '<?php phpinfo(); ?>' > ${WORKSPACE}/index.php
+
+RUN pear channel-update pear.php.net ; \
+    pear install MDB2 ; \
+    pear install MDB2_Driver_mysql-1.4.1 ; \
+    pear install HTTP_Request2-2.3.0 ; \
+    pear install XML_RPC-1.5.4
 
 COPY nginx_conf /etc/nginx/
 
