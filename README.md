@@ -87,3 +87,27 @@ log_errors = On
 1、nginx的配置文件nginx.conf和nginx-v2.conf都可以正常使用
 
 2、因为要迁移的服务php版本比较低，所以如果使用高版本可以参考php7文件夹下面的docker镜像
+
+
+安装radius扩展并不需要配置，只需要在Dockerfile中安装好radius扩展即可。以下是一个示例Dockerfile：
+
+FROM php:7.4-fpm
+RUN apt-get update \
+    && apt-get install -y libssl-dev \
+    && pecl install radius \
+    && docker-php-ext-enable radius
+这个Dockerfile中，我们先安装了libssl-dev，这是radius扩展所需要的依赖包。然后使用pecl命令安装radius扩展，并使用docker-php-ext-enable命令启用该扩展。
+
+注意：radius扩展需要在php.ini中配置radius服务器的IP地址和端口号。可以在运行容器时通过 -e 参数设置环境变量，例如：
+
+复制
+docker run -e RADIUS_SERVER=192.168.0.1 -e RADIUS_PORT=1812 my-php-app
+在PHP代码中，可以使用 radius_config() 函数来配置radius服务器信息，例如：
+
+复制
+$radius_config = array(
+    'host' => $_ENV['RADIUS_SERVER'],
+    'port' => $_ENV['RADIUS_PORT'],
+    'secret' => 'myradiussecret',
+);
+radius_config($radius_config);
