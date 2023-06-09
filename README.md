@@ -111,3 +111,5 @@ $radius_config = array(
     'secret' => 'myradiussecret',
 );
 radius_config($radius_config);
+
+**3、other_conf 里面默认启动 使用的supervisord 可以参考一下**
